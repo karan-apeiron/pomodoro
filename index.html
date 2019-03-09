@@ -7,7 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Pomodoro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <!-- <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+        crossorigin="anonymous">
+
     <style>
         .large-font {
             font-size: 10rem;
@@ -24,11 +27,22 @@
                         <a class="navbar-item">
                             Pomodoro
                         </a>
+
+
                         <span class="navbar-burger burger" data-target="navbarMenuHeroB">
                             <span></span>
                             <span></span>
                             <span></span>
                         </span>
+                    </div>
+                    <div class="navbar-end">
+                        <div class="navbar-item">
+                            <button id="settings" class="button is-black is-outlined">
+                                <span class="icon is-small">
+                                    <i class="fas fa-cog"></i>
+                                </span>
+                            </button>
+                        </div>
                     </div>
 
                 </div>
@@ -47,21 +61,60 @@
                     <button class="button is-info" id="pause">PAUSE</button>
                     <button class="button is-danger" id="stop">STOP</button>
                 </p>
-                <!-- <div class="notification is-primary">
-                    <button class="delete"></button>
-                    Primar lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut,
-                    porta nec nulla.
-                    Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis
-                        venenatis</a> efficitur.
-                    Sit amet,
-                    consectetur adipiscing elit
-                </div> -->
+
             </div>
         </div>
 
 
     </section>
+
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Settings</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <div class="modal-content">
+                    <div class="field is-horizontal">
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control">
+                                    <input class="input" name="minSettings" id="minSettings" type="number" min="0" max="60"
+                                        placeholder="Minutes">
+                                </p>
+                            </div>
+                            <div class="field">
+                                <p class="control">
+                                    <input class="input" name="secSettings" id="secSettings" type="number" min="0" max="60"
+                                        value="00" placeholder="Seconds">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success" id="saveSettings">Save changes</button>
+                <button class="button">Cancel</button>
+            </footer>
+        </div>
+    </div>
+
+
+
+    <script>
+        document.querySelector('#settings').addEventListener('click', e => {
+            document.querySelector('.modal').classList.add('is-active');
+        });
+
+        document.querySelector('.delete').addEventListener('click', e => {
+            document.querySelector('.modal').classList.remove('is-active');
+        })
+    </script>
+    <script src="js/localstorage.js"></script>
+    <script src="js/initialize.js"></script>
     <script src="js/app.js"></script>
 </body>
 
