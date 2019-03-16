@@ -4,11 +4,11 @@ const startButton = document.querySelector('#start');
 const pauseButton = document.querySelector('#pause');
 const stopButton = document.querySelector('#stop');
 const sound = new Howl({
-  src: ['../sounds/tick.mp3']
+  src: ['./sounds/tick.mp3']
 });
 
 const trumpetSound = new Howl({
-  src: ['../sounds/trumpet.mp3']
+  src: ['./sounds/trumpet.mp3']
 })
 
 let minutes;
