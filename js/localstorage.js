@@ -1,6 +1,3 @@
-const minuteSetting = document.querySelector('#minSettings');
-const secondsSetting = document.querySelector('#secSettings');
-
 document.querySelector('#saveSettings').addEventListener('click', e => {
   const time = {
     minutes: document.querySelector('#minSettings').value,

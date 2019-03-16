@@ -3,12 +3,15 @@ const secondsElem = document.querySelector('#seconds');
 const startButton = document.querySelector('#start');
 const pauseButton = document.querySelector('#pause');
 const stopButton = document.querySelector('#stop');
+const sound = new Howl({
+  src: ['./sounds/tick.mps']
+});
 
 let minutes;
 let seconds;
 let intervalId;
 let timerStatus = false;
-
+let timerStat;
 function pad(value) {
   return value.toString().length < 2 ? `0${value}` : value;
 }
@@ -19,6 +22,7 @@ function initialize() {
 }
 
 function updateDisplay(mins, sec) {
+  playSound();
   minutesElem.textContent = pad(mins);
   secondsElem.textContent = pad(sec);
 }
@@ -46,10 +50,29 @@ function showNotification(message) {
   }, 5000);
 }
 
+// function saveStatsToLocalStorage(ts) {
+//   let statsObj;
+//   if (typeof Storage !== 'undefined') {
+//     statsObj = window.localStorage.getItem('statsObj');
+//     if (!statsObj) {
+//       const todayIs = new Date().toString();
+//       statsObj = {
+//         new Date().toString() : ts
+//       };
+//     } else {
+//       const obj = JSON.parse(statsObj);
+//     }
+//     window.localStorage.setItem('statsObj', JSON.stringify(statsObj));
+//   }
+// }
+
 function startTimer() {
   timerStatus = true;
   updateButtons();
   initialize();
+  timerStat = {
+    startTime: new Date().getTime()
+  };
   intervalId = setInterval(() => {
     if (parseInt(seconds, 10) === 0) {
       seconds = 60;
@@ -58,7 +81,9 @@ function startTimer() {
     seconds -= 1;
     if (parseInt(minutes, 10) < 0) {
       clearInterval(intervalId);
+      timerStat.endTime = new Date().getTime();
       showNotification('Well Done!');
+      saveStatsToLocalStorage(timerStat);
       return;
     }
     updateDisplay(minutes, seconds);
@@ -66,7 +91,6 @@ function startTimer() {
 }
 
 startTimer();
-
 pauseButton.addEventListener('click', e => {
   timerStatus = false;
   updateButtons();
@@ -84,3 +108,7 @@ stopButton.addEventListener('click', e => {
   clearInterval(intervalId);
   updateDisplay(25, 0);
 });
+
+function playSound() {
+  sound.play();
+}

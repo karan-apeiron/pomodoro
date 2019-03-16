@@ -7,7 +7,8 @@ if (typeof Storage !== 'undefined') {
     minuteElem.textContent = time.minutes;
     secondElem.textContent = time.seconds;
   } else {
-    minuteElem.textContent = 25;
-    secondElem.textContent = '00';
+    // minuteElem.textContent = 25;
+    minuteElem.textContent = '00';
+    secondElem.textContent = '20';
   }
 }
