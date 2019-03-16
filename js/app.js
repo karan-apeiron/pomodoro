@@ -9,7 +9,7 @@ const sound = new Howl({
 
 const trumpetSound = new Howl({
   src: ['../sounds/trumpet.mp3']
-})
+});
 
 let minutes;
 let seconds;
@@ -115,8 +115,7 @@ stopButton.addEventListener('click', e => {
 function reset() {
   timerStatus = false;
   updateButtons();
-  if (intervalId)
-    clearInterval(intervalId);
+  if (intervalId) clearInterval(intervalId);
   updateDisplay(25, 0);
 }
 
