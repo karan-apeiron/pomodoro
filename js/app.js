@@ -4,14 +4,19 @@ const startButton = document.querySelector('#start');
 const pauseButton = document.querySelector('#pause');
 const stopButton = document.querySelector('#stop');
 const sound = new Howl({
-  src: ['./sounds/tick.mps']
+  src: ['../sounds/tick.mp3']
 });
+
+const trumpetSound = new Howl({
+  src: ['../sounds/trumpet.mp3']
+})
 
 let minutes;
 let seconds;
 let intervalId;
 let timerStatus = false;
 let timerStat;
+
 function pad(value) {
   return value.toString().length < 2 ? `0${value}` : value;
 }
@@ -82,15 +87,16 @@ function startTimer() {
     if (parseInt(minutes, 10) < 0) {
       clearInterval(intervalId);
       timerStat.endTime = new Date().getTime();
+      playTrumpet();
       showNotification('Well Done!');
-      saveStatsToLocalStorage(timerStat);
+      //saveStatsToLocalStorage(timerStat);
       return;
     }
     updateDisplay(minutes, seconds);
   }, 1000);
 }
 
-startTimer();
+reset();
 pauseButton.addEventListener('click', e => {
   timerStatus = false;
   updateButtons();
@@ -103,12 +109,21 @@ startButton.addEventListener('click', e => {
 });
 
 stopButton.addEventListener('click', e => {
+  reset();
+});
+
+function reset() {
   timerStatus = false;
   updateButtons();
-  clearInterval(intervalId);
+  if (intervalId)
+    clearInterval(intervalId);
   updateDisplay(25, 0);
-});
+}
 
 function playSound() {
   sound.play();
+}
+
+function playTrumpet() {
+  trumpetSound.play();
 }
